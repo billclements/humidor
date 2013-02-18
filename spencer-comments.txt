@@ -1,0 +1,11 @@
+Hi, 
+
+Thanks for sharing this. 
+
+-----------------------------------------
+
+So I don't know the first thing about testing Android apps. It is typicall to have to root level folders like this?
+
+Typically the test code goes under src. 
+
+-----------------------------------------
