@@ -9,3 +9,11 @@ So I don't know the first thing about testing Android apps. It is typicall to ha
 Typically the test code goes under src. 
 
 -----------------------------------------
+
+As far as I know, this is the best practices setup. The book I am using to learn from is Android Application Testing by 
+Diego Torres Milano. Amazon has an ebook version for about $15
+As far as I know, this is the only Android-specific TDD book. 
+The google documentation for Android testing is at 
+http://developer.android.com/tools/testing/testing_android.html
+
+-----------------------------------------
