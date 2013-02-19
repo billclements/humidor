@@ -1,63 +1,42 @@
 package com.TDD.Humidor.test;
 
-import junit.framework.TestCase;
+import android.app.Activity;
+import android.test.ActivityInstrumentationTestCase2;
 
-public class TestMainActivity extends TestCase {
+import com.TDD.Humidor.MainActivity;
+
+public class TestMainActivity extends ActivityInstrumentationTestCase2<MainActivity> {
+
+	private Activity mActivity;
+
+	public TestMainActivity() {
+		this("TestMainActivity");
+	}
 
 	public TestMainActivity(String name) {
-		super(name);
+		super(MainActivity.class);
+		setName(name);
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		/*
+		 * getActivity() has the side effect of starting an activity if it is
+		 * not already running. This causes problems when getActivity() is used
+		 * as a simple accessor several times in a test and for some reason the
+		 * Activity finishes or crashes before test completion. for this reason,
+		 * getActivity is used in the fixture
+		 */
+		mActivity = getActivity();
 	}
 
-	protected void tearDown() throws Exception {
-		super.tearDown();
+	/*
+	 * Test all preconditions and ensure that the fixture has been created
+	 * correctly
+	 */
+	public final void testPreconditions() {
+		assertNotNull(mActivity);
 	}
 
-	public void testOnCreateBundle() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnRestoreInstanceState() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnPostCreate() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnStart() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnRestart() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnResume() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnPostResume() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnSaveInstanceState() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnPause() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnStop() {
-		fail("Not yet implemented");
-	}
-
-	public void testOnDestroy() {
-		fail("Not yet implemented");
-	}
-
+	//TODO test the existence of UI components
 }
