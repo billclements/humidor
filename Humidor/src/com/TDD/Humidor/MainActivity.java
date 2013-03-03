@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.fragment_inventory_list);
 	}
 
 	// Called after onCreate has finished, used to restore UI state

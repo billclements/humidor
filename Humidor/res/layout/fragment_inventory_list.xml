@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+	@author Donald Lee
+ -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="fill_parent"
     android:orientation="vertical" >
-    
+
+	<!-- Add Cigar Button to take you to "Add Cigar" (fragment_add_inventory.xml) page -->
+	<Button
+	    android:id="@+id/button_AddCigar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:text="@string/addCigar"
+	    android:textSize="18sp"
+	    android:onClick="onClick" />
+        
+	<ListView 
+        android:id="@+id/cigarList" 
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" />
+
 
 </LinearLayout>

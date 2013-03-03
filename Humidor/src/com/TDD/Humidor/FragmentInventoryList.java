@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class FragmentInventoryList extends ListFragment {
 
@@ -34,17 +35,31 @@ public class FragmentInventoryList extends ListFragment {
 	}
 
 	// Called once the fragment has been created so it can create its UI
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		/*
-		 * create or inflate the fragment's ui and return it. If this fragment
-		 * has no UI then return null
-		 */
-		// TODO insert proper args in form
-		// inflater.inflate(R.layout.my_fragment, container, false)
-		return null;
-	}
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			/*
+			 * create or inflate the fragment's UI and return it. If this fragment
+			 * has no UI then return null
+			 */
+			// TODO insert proper args in form
+			
+			View view = inflater.inflate(R.layout.fragment_inventory_list, container, false);
+			
+			Button addCigar = (Button) view.findViewById(R.id.button_AddCigar);
+			addCigar.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					/*
+					 * 
+					 * code to take you to the add cigar page
+					 * 
+					 */				
+				}
+			});
+			return view;
+		}
 
 	// Called once the parent Activity and fragment UI have been created
 	@Override
