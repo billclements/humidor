@@ -22,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider
+          <!-- TODO fix this code, it's currently causing application to crash on load 
+          <provider
             android:name=".contentprovider.HumidorContentProvider"
             android:authorities="com.TDD.Humidor.contentprovider" >
-        </provider>
+        </provider> -->
     </application>
 
 </manifest>
