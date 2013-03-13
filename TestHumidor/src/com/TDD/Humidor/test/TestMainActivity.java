@@ -5,6 +5,7 @@ package com.TDD.Humidor.test;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
+import android.app.ListActivity;
 import android.content.IntentFilter;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
@@ -49,7 +50,15 @@ public class TestMainActivity extends
 		assertEquals(0, mListView.getSelectedItemPosition());
 	}
 
-
+	// An array of 2 items should populate the ListView
+	public final void testListPopulatedCorrectly() {
+		assertEquals(2, ((ListActivity) mActivity).getListView()
+				.getChildCount());
+		assertEquals("Add New Inventory", ((ListActivity) mActivity)
+				.getListView().getItemAtPosition(0).toString());
+		assertEquals("View Inventory", ((ListActivity) mActivity).getListView()
+				.getItemAtPosition(1).toString());
+	}
 
 	// Clicking the list should open a new activity
 	public final void testListClick() {
