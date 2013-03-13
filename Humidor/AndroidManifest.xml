@@ -27,6 +27,8 @@
             android:name=".contentprovider.HumidorContentProvider"
             android:authorities="com.TDD.Humidor.contentprovider" >
         </provider> -->
+        <activity android:name="AddInventoryActivity"></activity>
+        <activity android:name="ViewInventoryActivity"></activity>
     </application>
 
 </manifest>
