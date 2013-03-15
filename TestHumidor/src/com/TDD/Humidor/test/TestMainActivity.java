@@ -1,4 +1,5 @@
 package com.TDD.Humidor.test;
+
 /**
  * Author: Megan Clark
  */
@@ -66,14 +67,17 @@ public class TestMainActivity extends
 		int count = mListView.getChildCount();
 		mInstrumentation.waitForIdleSync();
 		final IntentFilter intentFilter = new IntentFilter();
-		ActivityMonitor monitor = mInstrumentation.addMonitor(intentFilter, null, true);
+		ActivityMonitor monitor = mInstrumentation.addMonitor(intentFilter,
+				null, true);
 		assertEquals(0, monitor.getHits());
 		// click each entry in the list and check that it receives the click
-		for(i = 0; i < count; i++){
+		for (i = 0; i < count; i++) {
 			View child = mListView.getChildAt(i);
 			TouchUtils.clickView(this, child);
-			monitor.waitForActivityWithTimeout(5000);
-			assertEquals(i+1, monitor.getHits());
+			monitor.waitForActivityWithTimeout(3000);
+			assertEquals(i + 1, monitor.getHits());
+			// TODO ensure that the correct activity (inventory detail for that
+			// particular inventory item) is being launched
 		}
 		mInstrumentation.removeMonitor(monitor);
 

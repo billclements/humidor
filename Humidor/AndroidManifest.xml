@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +30,7 @@
         </provider> 
         <activity android:name="AddInventoryActivity"></activity>
         <activity android:name="ViewInventoryActivity"></activity>
+        <activity android:name="TempListClass"></activity>
     </application>
 
 </manifest>

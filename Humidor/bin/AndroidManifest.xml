@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -22,13 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-          <!-- TODO fix this code, it's currently causing application to crash on load 
+          <!-- Got it... I don't what I was thinking last time! --> 
           <provider
-            android:name=".contentprovider.HumidorContentProvider"
-            android:authorities="com.TDD.Humidor.contentprovider" >
-        </provider> -->
+            android:name="com.TDD.Humidor.HumidorContentProvider"
+            android:authorities="com.TDD.HumidorContentprovider" >
+        </provider> 
         <activity android:name="AddInventoryActivity"></activity>
         <activity android:name="ViewInventoryActivity"></activity>
+        <activity android:name="TempListClass"></activity>
     </application>
 
 </manifest>

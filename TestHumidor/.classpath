@@ -5,5 +5,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Humidor"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="D:/Android/Libs/robotium-solo-4.0.jar"/>
+	<classpathentry kind="lib" path="D:/Android/Libs/robotium-solo-4.0-javadoc.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

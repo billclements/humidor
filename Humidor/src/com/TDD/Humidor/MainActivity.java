@@ -9,9 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-/**
- * @author Megan Clark
+/*
+ * Author: Megan Clark
  */
+
 public class MainActivity extends ListActivity {
 
 	/** Called when the activity is first created */
