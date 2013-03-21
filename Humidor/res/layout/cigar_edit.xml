@@ -3,13 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <Spinner
-        android:id="@+id/category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/priorities" >
-    </Spinner>
+    
+    <LinearLayout
+        android:id="@+id/LinearLayoutRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <TextView
+            android:id="@+id/ratingText"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="12dp" 
+	        android:text="@string/rating"
+	        android:textSize="18sp" >
+            
+        </TextView>
+            
+	    
+	    <Spinner
+	        android:id="@+id/category"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:entries="@array/priorities" >
+	    </Spinner>
+    
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/LinearLayout01"
@@ -18,11 +37,13 @@
 
         <EditText
             android:id="@+id/cigar_edit_brand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="@string/cigar_edit_brand"
-            android:imeOptions="actionNext" >
+            android:imeOptions="actionNext"
+            android:inputType="text" >
+
         </EditText>
     </LinearLayout>
 
@@ -31,8 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/cigar_edit_type"
+        android:inputType="text"
         android:imeOptions="actionNext" >
     </EditText>
     
@@ -41,8 +63,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/cigar_edit_wrapper"
+        android:inputType="text"
         android:imeOptions="actionNext" >
     </EditText>
     
@@ -51,8 +74,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/cigar_edit_vitola"
+        android:inputType="text"
         android:imeOptions="actionNext" >
     </EditText>
     
@@ -61,14 +85,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="top"
+        android:gravity="bottom"
         android:hint="@string/cigar_edit_quantity"
+        android:inputType="number"
         android:imeOptions="actionNext" >
     </EditText>
 
     <Button
         android:id="@+id/cigar_edit_button"
-        android:layout_width="wrap_content"
+        android:background="@drawable/blue_button"
+	    style="@style/ButtonStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cigar_edit_confirm" >
     </Button>

@@ -14,5 +14,6 @@
     <string name="cigar_edit_vitola">Vitola</string>
     <string name="cigar_edit_quantity">Quantity</string>
     <string name="cigar_edit_confirm">Confirm</string>
+    <string name="rating">Rating: </string>
 
 </resources>

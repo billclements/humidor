@@ -59,8 +59,10 @@ public class CigarDetailActivity extends Activity {
 	        if (TextUtils.isEmpty(mBrandText.getText().toString())) {
 	          makeToast();
 	        } else {
-	          setResult(RESULT_OK);
-	          finish();
+	        	saveState(); //added
+	        	setResult(RESULT_OK);
+	        	finish();
+	        	makeToastSaved();
 	        }
 	      }
 
@@ -111,7 +113,7 @@ public class CigarDetailActivity extends Activity {
 	  @Override
 	  protected void onPause() {
 	    super.onPause();
-	    saveState();
+	    //saveState(); //removed for better functionality
 	  }
 
 	  private void saveState() {
@@ -148,7 +150,12 @@ public class CigarDetailActivity extends Activity {
 	  }
 
 	  private void makeToast() {
-	    Toast.makeText(CigarDetailActivity.this, "Please maintain a summary",
+	    Toast.makeText(CigarDetailActivity.this, "Please specify the brand of the cigar",
 	        Toast.LENGTH_LONG).show();
 	  }
+	  
+	  private void makeToastSaved() {
+		    Toast.makeText(CigarDetailActivity.this, "Your cigar has been saved",
+		        Toast.LENGTH_LONG).show();
+		  }
 	} 
