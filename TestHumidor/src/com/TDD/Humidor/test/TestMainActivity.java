@@ -1,95 +1,130 @@
 package com.TDD.Humidor.test;
 
-import android.app.Instrumentation;
-import android.app.Instrumentation.ActivityMonitor;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.test.ActivityUnitTestCase;
-import android.test.TouchUtils;
-import android.test.UiThreadTest;
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.TDD.Humidor.MainActivity;
+import com.jayway.android.robotium.solo.Solo;
 
 public class TestMainActivity extends
-		ActivityUnitTestCase<MainActivity> {
+		ActivityInstrumentationTestCase2<MainActivity> {
 
-	private Intent mStartIntent;
-	private ListView mListView;
-	private Instrumentation mInstrumentation;
+	private Solo solo;
 	private MainActivity mActivity;
-	private Context mContext;
+	private ListView mListView;
 
+	// No-arg Constructor per Best Practice
 	public TestMainActivity() {
+		this("TestMainActivityInstrumentation");
+	}
+
+	public TestMainActivity(String name) {
 		super(MainActivity.class);
+		setName(name);
 	}
 
 	@Override
 	protected void setUp() throws Exception {
-		super.setUp();
-		mStartIntent = new Intent(Intent.ACTION_MAIN);
-		mInstrumentation = getInstrumentation();
-		mActivity = startActivity(mStartIntent, null, null);
+		solo = new Solo(getInstrumentation(), getActivity());
+		mActivity = getActivity();
 		mListView = (ListView) mActivity.findViewById(android.R.id.list);
-		mContext = getInstrumentation().getTargetContext();
+
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
+		try {
+			solo.finishOpenedActivities();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		getActivity().finish();
 		super.tearDown();
 	}
 
 	/*
-	 * ====================================================================
-	 * TESTS
+	 * ======================================================================
+	 * Method Tests
+	 * ======================================================================
 	 */
+
+	// Ensure that the fixture is correctly set up
 	public void testPreconditions() {
+		solo.assertCurrentActivity("wrong activity", MainActivity.class);
 		assertNotNull(mActivity);
 		assertNotNull(mListView);
+
 	}
 
-	// Is the list view populated?
-	public final void testListIsPopulated() {
-		assertNotNull(mListView.getChildCount());
+	// Ensure All views are on screen
+	public void testViews() {
+		assertNotNull(mActivity.findViewById(com.TDD.Humidor.R.id.insert));
+		assertNotNull(mActivity.findViewById(android.R.id.list));
 	}
 
-	// is the new activity launched on click?
-	public void testSubLaunch() {
-		int i;
-		int count = mListView.getChildCount();
-		mInstrumentation.waitForIdleSync();
-		final IntentFilter intentFilter = new IntentFilter();
-		ActivityMonitor monitor = mInstrumentation.addMonitor(intentFilter,
-				null, true);
-		assertEquals(0, monitor.getHits());
-		// click each entry in the list and check that it receives the click, a
-		// new activity is started, and this activity shuts down properly
-		for (i = 0; i < count; i++) {
-			View child = mListView.getChildAt(i);
-			TouchUtils.clickView(this, child);
-			monitor.waitForActivityWithTimeout(3000);
-			assertEquals(i + 1, monitor.getHits());
-			assertNotNull(getStartedActivityIntent());
-			assertTrue(isFinishCalled());
-		}
-		mInstrumentation.removeMonitor(monitor);
+	// TODO Is the list view populated?
+	public void testIsListPopulated() {
+		ArrayList<View> list = solo.getCurrentViews();
+		Log.d("MegsLogTag",
+				"number of list views on the screen: " + list.size());
 	}
 
-	// can the selection be set to specific position?
-	@UiThreadTest
-	public void testSetSelection() {
-		int childCount = mListView.getChildCount();
-		for (int i = 0; i < childCount; i++) {
-			mListView.setSelection(i);
-			assertEquals("Set selection", i,
-					mListView.getSelectedItemPosition());
-		}
+	// When a list item is clicked a new activity should be opened
+	public void testOnListItemClick() {
+		// select first entry
+		solo.clickInList(1);
+		solo.waitForActivity("CigarDetailActivity", 1000);
+		// check that the CigarDetailActivity has been loaded
+		solo.assertCurrentActivity("Expected CigarDetailActivity",
+				"CigarDetailActivity");
+
 	}
 
-	// TODO find test contextmenu
-	// TODO find test contentresolver
-	// TODO find test progressbar
-	// TODO find test lifecycle
+	// When the list is long-pressed a context menu should appear
+	// with an option to delete the item. When item is deleted
+	// the list should refresh and deleted entry should be gone
+	public void testOnContextItemSelected() {
+		int firstCount = mListView.getChildCount();
+		solo.clickLongInList(0);
+		solo.waitForDialogToOpen(1000);
+		solo.clickOnText("Delete Cigar");
+		solo.waitForDialogToClose(2000);
+		int secondCount = mListView.getChildCount();
+		assertNotSame(firstCount, secondCount);
+
+	}
+
+	// when the Insert button is clicked a new activity should be opened
+	public void testOnOptionsItemSelected() {
+		solo.clickOnMenuItem("Insert");
+		// assert that CigarDetailActivity is opened
+		solo.assertCurrentActivity("Expected CigarDetailActivity",
+				"CigarDetailActivity");
+	}
+
+	/*
+	 * ======================================================================
+	 * Activity Lifecycle Tests
+	 * ======================================================================
+	 */
+
+	// ensure that activity is properly reinitialized after orientation change
+	public void testOrientationChange() {
+		// get the current activity
+		Activity originalActivity = solo.getCurrentActivity();
+		// change the orientation
+		solo.setActivityOrientation(Solo.LANDSCAPE);
+		// wait for the activity to settle
+		getInstrumentation().waitForIdleSync();
+		// get the current activity
+		Activity landscapeActivity = solo.getCurrentActivity();
+		assertNotSame(originalActivity, landscapeActivity);
+
+	}
 
 }
