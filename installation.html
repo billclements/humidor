@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta name="author" content="Donald Lee" />
+<title>Running Humidor</title>
+</head>
+<body>
+	<h2>Tutorial: <i>Installing Android Development Tools and Running Humidor On You Computer</i></h2>
+	
+	<p>Follow the steps below to set up Android Development Tools and run the Humidor app through the Android Virtual Device:</p>
+	
+	<ol>
+		<li>Install Android Development Tools</li></br>
+			<ul><li><a href="http://developer.android.com/sdk/index.html" target="_blank">http://developer.android.com/sdk/index.html</a></li></ul></br>
+		
+		<li>Extract the zip file and start Eclipse from the <i>"eclipse"</i> folder located in the extracted folder from the zip file.</li></br>
+		
+		<li>Install the correct Android API version</li></br>
+			<ul>
+				<li>Select <i>"Window"</i> then <i>"Android SDK Manager"</i> in the Eclipse menu and make sure the folling folders are installed:</li></br>
+					<ul>
+						<li>Tools</li>
+						<li>Android 4.2.2 (API 17)</li>
+						<li>Extras</li>
+					</ul>
+					<p><i>*Note: You may only need the "Android Support Library" from the "Extras" folder</i></p>
+			</ul>
+		<li>Check out the project from GitHub</li></br>
+			<ul><li><a href="https://github.com/mjclark505/humidor.git" target="_blank">https://github.com/mjclark505/humidor.git</a></li></ul></br>
+		
+		<li>Import the project into Eclipse</li></br>
+			<ul>
+				<li>Select <i>"File"</i> then <i>"Import"</i> in the Eclipse menu.</li>
+				<li>Select <i>"Exisiting Android Code Into Workspace"</i> in the <i>"Android"</i> folder and click <i>"Next"</i>.</li>
+				<li>Click <i>"Browse"</i> then locate and select the project folder you checked out from GitHub.</li>
+				<li>Click <i>"Open"</i></li>
+			</ul>
+			<p><i>*Note: If any of the project folders are showing errors you may need to right-click the folder to go to Android Tools and select Fix Project Properties.</i></p>
+		
+		<li>Create Android Virtual Device</li></br>
+			<ul>
+				<li>Select <i>"Window"</i> then <i>"Android Virtual Device Manager"</i> in the Eclipse menu.</li>
+				<li>Click <i>"New..."</i></li>
+				<li>Set the following:</li>
+				<table border="1px" cellpadding="5px">
+					<tr>
+						<td>AVD Name: </td>
+						<td>AVD422ARM</td>
+					</tr>
+					<tr>
+						<td>Device: </td>
+						<td>Nexus S (4.0", 480 x 800: hdpi)</td>
+					</tr>
+					<tr>
+						<td>Target: </td>
+						<td>Android 4.2.2 - API Level 17</td>
+					</tr>
+					<tr>
+						<td>CPU/ABI: </td>
+						<td>ARM (armeabi-v7a)</td>
+					</tr>
+				</table>
+				<i>*Note: You may use a different "AVD Name" if you please.</i></br></br>
+				<li>Make sure <i>"Use Host GPU"</i> is selected in <i>"Emulation Options"</i>.</li>
+				<li>Click <i>"Ok"</i> and then close <i>Android Vitural Device Manager</i>.</li>
+			</ul></br>
+			
+		<li>Run Android Virtual Device</li></br>
+			<ul>
+				<li>Select <i>"Run"</i> from the Eclipse menu then <i>Run Configurations</i></li>
+				<li>Select either the Application or the test you wish to run from the list on the left.</li>
+				<li>Click the <i>"Target"</i> tab and select the AVD you created.</li>
+				<li>Make sure <i>"Wipe user data"</i> is selected and click <i>"Run"</i></li>
+				<i>*Note: Do not close the emulator while it is loading.</i></br>
+			</ul></br>
+		<li>Enjoy!</li></br>
+	</ol>
+	</br></br>
+	
+	<p><i>For additional Android Development Tools setup instructions, please visit <a href="http://www.vogella.com/articles/AndroidInstallation/article.html" target="_blank">http://www.vogella.com/articles/AndroidInstallation/article.html</a></i></p>
+</body>
+</head>
