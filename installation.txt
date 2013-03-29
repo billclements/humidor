@@ -1,0 +1,60 @@
+Tutorial: Installing Android Development Tools and Running Humidor On You Computer
+
+Follow the steps below to set up Android Development Tools and run the Humidor app through the Android Virtual Device:
+
+1. Install Android Development Tools
+
+	http://developer.android.com/sdk/index.html
+
+2. Extract the zip file and start Eclipse from the "eclipse" folder located in the extracted folder from the zip file.
+
+3. Install the correct Android API version
+
+	-Select "Window" then "Android SDK Manager" in the Eclipse menu and make sure the folling folders are installed:
+
+		Tools
+		Android 4.2.2 (API 17)
+		Extras
+	*Note: You may only need the "Android Support Library" from the "Extras" folder
+
+4. Check out the project from GitHub
+
+	https://github.com/mjclark505/humidor.git
+
+5. Import the project into Eclipse
+
+	-Select "File" then "Import" in the Eclipse menu.
+	-Select "Exisiting Android Code Into Workspace" in the "Android" folder and click "Next".
+	-Click "Browse" then locate and select the project folder you checked out from GitHub.
+	-Click "Open"
+	*Note: If any of the project folders are showing errors you may need to right-click the folder to go to Android Tools and select Fix Project Properties.
+
+6. Create Android Virtual Device
+
+	-Select "Window" then "Android Virtual Device Manager" in the Eclipse menu.
+	-Click "New..."
+	-Set the following:
+		AVD Name:	AVD422ARM
+		Device:		Nexus S (4.0", 480 x 800: hdpi)
+		Target:		Android 4.2.2 - API Level 17
+		CPU/ABI:	ARM (armeabi-v7a)
+		*Note: You may use a different "AVD Name" if you please.
+	-Make sure "Use Host GPU" is selected in "Emulation Options".
+	-Click "Ok" and then close Android Vitural Device Manager.
+
+7. Run Humidor Application
+
+	-Right-click the Humidor project folder and select "Run As" then "1 Android Application"
+	*Note: Do not close the emulator while it is loading.
+	*Note: Wiping use data can be enabled in "Run Configurations"
+
+8. Run Humidor Application Tests
+
+	-Right-click the TestHumidor project folder and select "Run As" then "2 Android JUnit Test"
+	*Note: Test classes can be run seperately by right-clicking the test class in the "src" folder of the "TestHumidor" project folder and selecting "Run As" then "1 Android Junit Test"
+
+9. Enjoy!
+
+
+
+For additional Android Development Tools setup instructions, please visit http://www.vogella.com/articles/AndroidInstallation/article.html
