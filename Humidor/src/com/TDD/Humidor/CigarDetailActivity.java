@@ -24,7 +24,17 @@ public class CigarDetailActivity extends Activity {
 	  private EditText mWrapperText;
 	  private EditText mVitolaText;
 	  private EditText mQuantityText;
-
+	  private Button confirmButton;
+	  
+	  private String category;
+	  private String brand;
+	  private String type;
+	  private String wrapper;
+	  private String vitola;
+	  private String quantity;
+	  
+	  public boolean saved;
+	  
 	  private Uri cigarUri;
 
 	  @Override
@@ -38,13 +48,12 @@ public class CigarDetailActivity extends Activity {
 	    mWrapperText = (EditText) findViewById(R.id.cigar_edit_wrapper);
 	    mVitolaText = (EditText) findViewById(R.id.cigar_edit_vitola);
 	    mQuantityText = (EditText) findViewById(R.id.cigar_edit_quantity);
-	    Button confirmButton = (Button) findViewById(R.id.cigar_edit_button);
-
+	    confirmButton = (Button) findViewById(R.id.cigar_edit_button);
+	    
 	    Bundle extras = getIntent().getExtras();
-
 	    // Check from the saved Instance
 	    cigarUri = (bundle == null) ? null : (Uri) bundle
-	        .getParcelable(HumidorContentProvider.CONTENT_ITEM_TYPE);
+	        .getParcelable(HumidorContentProvider.CONTENT_ITEM_TYPE);	 
 
 	    // Or passed from the other activity
 	    if (extras != null) {
@@ -53,16 +62,19 @@ public class CigarDetailActivity extends Activity {
 
 	      fillData(cigarUri);
 	    }
-
+	    
 	    confirmButton.setOnClickListener(new View.OnClickListener() {
 	      public void onClick(View view) {
 	        if (TextUtils.isEmpty(mBrandText.getText().toString())) {
-	          makeToast();
+	        	saved = false;
+	        	makeToast(saved);
 	        } else {
-	        	saveState(); //added
+	        	saved = true;
+	        	saveState();
+	        	saveData();
 	        	setResult(RESULT_OK);
 	        	finish();
-	        	makeToastSaved();
+	        	makeToast(saved);
 	        }
 	      }
 
@@ -70,6 +82,10 @@ public class CigarDetailActivity extends Activity {
 	  }
 
 	  private void fillData(Uri uri) {
+		  
+//		  //test
+//		  makeTestToast("Data filled");
+		  
 	    String[] projection = { HumidorTable.COLUMN_BRAND,
 	        HumidorTable.COLUMN_TYPE, HumidorTable.COLUMN_WRAPPER,
 	        HumidorTable.COLUMN_VITOLA, HumidorTable.COLUMN_QUANTITY, HumidorTable.COLUMN_CATEGORY };
@@ -113,49 +129,65 @@ public class CigarDetailActivity extends Activity {
 	  @Override
 	  protected void onPause() {
 	    super.onPause();
-	    //saveState(); //removed for better functionality
+	    saveState();
+	  }
+	  
+	  @Override
+	  protected void onResume() {
+		  super.onResume();
+	  }
+	  
+	  @Override
+	  protected void onRestart() {
+		  super.onRestart();		  
+	  }
+	  
+	  @Override
+	  protected void onDestroy() {
+		  super.onDestroy();
 	  }
 
 	  private void saveState() {
-	    String category = (String) mCategory.getSelectedItem();
-	    String brand = mBrandText.getText().toString();
-	    String type = mTypeText.getText().toString();
-	    String wrapper = mWrapperText.getText().toString();
-	    String vitola = mVitolaText.getText().toString();
-	    String quantity = mQuantityText.getText().toString();
-
-	    // Only save if either brand or type
-	    // is available
-
-	    if (brand.length() == 0 && type.length() == 0) {
-	      return;
-	    }
-
-	    ContentValues values = new ContentValues();
-	    values.put(HumidorTable.COLUMN_CATEGORY, category);
-	    values.put(HumidorTable.COLUMN_BRAND, brand);
-	    values.put(HumidorTable.COLUMN_TYPE, type);
-	    values.put(HumidorTable.COLUMN_WRAPPER, wrapper);
-	    values.put(HumidorTable.COLUMN_VITOLA, vitola);
-	    values.put(HumidorTable.COLUMN_QUANTITY, quantity);
-	    
-
-	    if (cigarUri == null) {
-	      // New cigar
-	      cigarUri = getContentResolver().insert(HumidorContentProvider.CONTENT_URI, values);
-	    } else {
-	      // Update cigar
-	      getContentResolver().update(cigarUri, values, null, null);
-	    }
-	  }
-
-	  private void makeToast() {
-	    Toast.makeText(CigarDetailActivity.this, "Please specify the brand of the cigar",
-	        Toast.LENGTH_LONG).show();
+		  // saves inputs to global variables
+		  category = (String) mCategory.getSelectedItem();
+		  brand = mBrandText.getText().toString();
+		  type = mTypeText.getText().toString();
+		  wrapper = mWrapperText.getText().toString();
+		  vitola = mVitolaText.getText().toString();
+		  quantity = mQuantityText.getText().toString();
 	  }
 	  
-	  private void makeToastSaved() {
-		    Toast.makeText(CigarDetailActivity.this, "Your cigar has been saved",
-		        Toast.LENGTH_LONG).show();
+	  private void saveData() {
+		// Saves data to DB only if either brand or type is available
+		
+		if (brand.length() == 0 && type.length() == 0) {
+		  return;
+		}
+		
+		ContentValues values = new ContentValues();
+		values.put(HumidorTable.COLUMN_CATEGORY, category);
+		values.put(HumidorTable.COLUMN_BRAND, brand);
+		values.put(HumidorTable.COLUMN_TYPE, type);
+		values.put(HumidorTable.COLUMN_WRAPPER, wrapper);
+		values.put(HumidorTable.COLUMN_VITOLA, vitola);
+		values.put(HumidorTable.COLUMN_QUANTITY, quantity);	
+		
+		if (cigarUri == null) {
+		  // New cigar
+		  cigarUri = getContentResolver().insert(HumidorContentProvider.CONTENT_URI, values);
+		} else {
+		  // Update cigar
+		  getContentResolver().update(cigarUri, values, null, null);
+		}
+	  }
+
+	  private void makeToast(boolean savedStatus) {
+		  if (savedStatus == false) {
+			  Toast.makeText(CigarDetailActivity.this, "Please specify the brand of the cigar", Toast.LENGTH_LONG).show();
 		  }
+		  else {
+			  Toast.makeText(CigarDetailActivity.this, "Your cigar has been saved", Toast.LENGTH_LONG).show();
+		  }
+	  }
+	  
 	} 
