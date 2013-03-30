@@ -24,23 +24,26 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int reminder=0x7f020001;
+        public static final int blue_button=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int reminder=0x7f020002;
     }
     public static final class id {
-        public static final int LinearLayout01=0x7f090001;
-        public static final int TextView01=0x7f09000a;
-        public static final int action_settings=0x7f09000c;
-        public static final int category=0x7f090000;
-        public static final int cigar_edit_brand=0x7f090002;
-        public static final int cigar_edit_button=0x7f090007;
-        public static final int cigar_edit_quantity=0x7f090006;
-        public static final int cigar_edit_type=0x7f090003;
-        public static final int cigar_edit_vitola=0x7f090005;
-        public static final int cigar_edit_wrapper=0x7f090004;
-        public static final int icon=0x7f090008;
-        public static final int insert=0x7f09000b;
-        public static final int label=0x7f090009;
+        public static final int LinearLayout01=0x7f090003;
+        public static final int LinearLayoutRating=0x7f090000;
+        public static final int TextView01=0x7f09000c;
+        public static final int action_settings=0x7f09000e;
+        public static final int category=0x7f090002;
+        public static final int cigar_edit_brand=0x7f090004;
+        public static final int cigar_edit_button=0x7f090009;
+        public static final int cigar_edit_quantity=0x7f090008;
+        public static final int cigar_edit_type=0x7f090005;
+        public static final int cigar_edit_vitola=0x7f090007;
+        public static final int cigar_edit_wrapper=0x7f090006;
+        public static final int icon=0x7f09000a;
+        public static final int insert=0x7f09000d;
+        public static final int label=0x7f09000b;
+        public static final int ratingText=0x7f090001;
     }
     public static final class layout {
         public static final int cigar_edit=0x7f030000;
@@ -64,6 +67,7 @@ public final class R {
         public static final int menu_delete=0x7f060004;
         public static final int menu_insert=0x7f060003;
         public static final int no_cigars=0x7f060002;
+        public static final int rating=0x7f06000c;
     }
     public static final class style {
         /** 
@@ -92,5 +96,6 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        public static final int ButtonStyle=0x7f070002;
     }
 }

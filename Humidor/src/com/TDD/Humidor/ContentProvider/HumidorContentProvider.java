@@ -22,8 +22,8 @@ public class HumidorContentProvider extends ContentProvider {
   private HumidorDatabaseHelper database;
 
   // Used for the UriMacher
-  private static final int TODOS = 10;
-  private static final int TODO_ID = 20;
+  private static final int CIGARS = 10;
+  private static final int CIGAR_ID = 20;
 
   private static final String AUTHORITY = "com.TDD.Humidor.ContentProvider";
   private static final String BASE_PATH = "Humidor";
@@ -31,14 +31,14 @@ public class HumidorContentProvider extends ContentProvider {
       + "/" + BASE_PATH);
 
   public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-      + "/todos";
+      + "/cigars";
   public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-      + "/todo";
+      + "/cigar";
 
   private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
   static {
-    sURIMatcher.addURI(AUTHORITY, BASE_PATH, TODOS);
-    sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TODO_ID);
+    sURIMatcher.addURI(AUTHORITY, BASE_PATH, CIGARS);
+    sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", CIGAR_ID);
   }
 
   @Override
@@ -62,9 +62,9 @@ public class HumidorContentProvider extends ContentProvider {
 
     int uriType = sURIMatcher.match(uri);
     switch (uriType) {
-    case TODOS:
+    case CIGARS:
       break;
-    case TODO_ID:
+    case CIGAR_ID:
       // Adding the ID to the original query
       queryBuilder.appendWhere(HumidorTable.COLUMN_ID + "="
           + uri.getLastPathSegment());
@@ -91,10 +91,9 @@ public class HumidorContentProvider extends ContentProvider {
   public Uri insert(Uri uri, ContentValues values) {
     int uriType = sURIMatcher.match(uri);
     SQLiteDatabase sqlDB = database.getWritableDatabase();
-    int rowsDeleted = 0;
     long id = 0;
     switch (uriType) {
-    case TODOS:
+    case CIGARS:
       id = sqlDB.insert(HumidorTable.TABLE_NAME, null, values);
       break;
     default:
@@ -110,11 +109,11 @@ public class HumidorContentProvider extends ContentProvider {
     SQLiteDatabase sqlDB = database.getWritableDatabase();
     int rowsDeleted = 0;
     switch (uriType) {
-    case TODOS:
+    case CIGARS:
       rowsDeleted = sqlDB.delete(HumidorTable.TABLE_NAME, selection,
           selectionArgs);
       break;
-    case TODO_ID:
+    case CIGAR_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
         rowsDeleted = sqlDB.delete(HumidorTable.TABLE_NAME,
@@ -142,13 +141,13 @@ public class HumidorContentProvider extends ContentProvider {
     SQLiteDatabase sqlDB = database.getWritableDatabase();
     int rowsUpdated = 0;
     switch (uriType) {
-    case TODOS:
+    case CIGARS:
       rowsUpdated = sqlDB.update(HumidorTable.TABLE_NAME, 
           values, 
           selection,
           selectionArgs);
       break;
-    case TODO_ID:
+    case CIGAR_ID:
       String id = uri.getLastPathSegment();
       if (TextUtils.isEmpty(selection)) {
         rowsUpdated = sqlDB.update(HumidorTable.TABLE_NAME, 
